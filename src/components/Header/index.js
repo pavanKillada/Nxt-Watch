@@ -5,9 +5,26 @@ import {Link, withRouter} from 'react-router-dom'
 import {FaMoon, FaBars} from 'react-icons/fa'
 import {BiSun} from 'react-icons/bi'
 import {FiLogOut} from 'react-icons/fi'
-import './index.css'
 import ReactHeaderContext from '../ReactHeaderContext'
 import NavRoutes from '../NavRoutes'
+import {
+  BarRoutesDivContainer,
+  Nav,
+  NavIconsContainer,
+  NavIconsLi,
+  NavProfileIconLi,
+  ProfileBtn,
+  NavBarsIconLi,
+  ThemeBtn,
+  NavLogoutIconLi,
+  PopupContainer,
+  PopupText,
+  PopupBtnsContainer,
+  CancelBtn,
+  ConformBtn,
+  NavLogoutBtnLi,
+  LogoutBtn,
+} from '../../StyledComponents'
 
 class Header extends Component {
   state = {
@@ -33,7 +50,7 @@ class Header extends Component {
           const {darkTheme, onChangeTheme} = value
           return (
             <>
-              <nav className={darkTheme ? 'dark-nav' : 'nav'}>
+              <Nav>
                 <Link className="link" to="/">
                   <img
                     src={
@@ -45,139 +62,87 @@ class Header extends Component {
                     width="120px"
                   />
                 </Link>
-                <ul className="nav-icons-container">
-                  <li className="nav-icon-li">
+                <NavIconsContainer>
+                  <NavIconsLi>
                     {darkTheme ? (
-                      <button
-                        className={darkTheme ? 'dark-theme-btn' : 'theme-btn'}
-                        onClick={onChangeTheme}
-                        type="button"
-                      >
+                      <ThemeBtn onClick={onChangeTheme} type="button">
                         <BiSun />
-                      </button>
+                      </ThemeBtn>
                     ) : (
-                      <button
-                        className={darkTheme ? 'dark-theme-btn' : 'theme-btn'}
-                        onClick={onChangeTheme}
-                        type="button"
-                      >
+                      <ThemeBtn onClick={onChangeTheme} type="button">
                         <FaMoon />
-                      </button>
+                      </ThemeBtn>
                     )}
-                  </li>
-                  <li className="nav-profile-icon-li">
-                    <button className="profile-btn" type="button">
+                  </NavIconsLi>
+                  <NavProfileIconLi>
+                    <ProfileBtn type="button">
                       <img
                         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
                         alt="profile"
                         width="25px"
                       />
-                    </button>
-                  </li>
-                  <li className="nav-bars-icon-li">
-                    <button
-                      className={darkTheme ? 'dark-theme-btn' : 'theme-btn'}
-                      type="button"
-                      onClick={this.onClickBar}
-                    >
-                      <FaBars className={barActive && 'active-bar'} />
-                    </button>
-                  </li>
-                  <li className="nav-logout-icon-li">
+                    </ProfileBtn>
+                  </NavProfileIconLi>
+                  <NavBarsIconLi>
+                    <ThemeBtn type="button" onClick={this.onClickBar}>
+                      <FaBars />
+                    </ThemeBtn>
+                  </NavBarsIconLi>
+                  <NavLogoutIconLi>
                     <Popup
+                      position="center center"
                       modal
                       trigger={
-                        <button
-                          className={darkTheme ? 'dark-theme-btn' : 'theme-btn'}
-                          type="button"
-                        >
+                        <ThemeBtn type="button">
                           <FiLogOut />
-                        </button>
+                        </ThemeBtn>
                       }
-                      className="popup-content"
                     >
                       {close => (
-                        <div className={darkTheme ? 'dark-popup' : 'popup'}>
-                          <p
-                            className={
-                              darkTheme ? 'dark-popup-text' : 'popup-text'
-                            }
-                          >
+                        <PopupContainer>
+                          <PopupText>
                             Are you sure, you want to logout?
-                          </p>
-                          <div className="popup-btns-container">
-                            <button
-                              className={
-                                darkTheme ? 'dark-cancel-btn' : 'cancel-btn'
-                              }
-                              onClick={() => close()}
-                              type="button"
-                            >
+                          </PopupText>
+                          <PopupBtnsContainer>
+                            <CancelBtn onClick={() => close()} type="button">
                               Cancel
-                            </button>
-                            <button
-                              className="conform-btn"
-                              onClick={this.onLogout}
-                              type="button"
-                            >
+                            </CancelBtn>
+                            <ConformBtn onClick={this.onLogout} type="button">
                               Conform
-                            </button>
-                          </div>
-                        </div>
+                            </ConformBtn>
+                          </PopupBtnsContainer>
+                        </PopupContainer>
                       )}
                     </Popup>
-                  </li>
-                  <li className="nav-logout-btn-li">
+                  </NavLogoutIconLi>
+                  <NavLogoutBtnLi>
                     <Popup
+                      position="center center"
                       modal
-                      trigger={
-                        <button
-                          className={
-                            darkTheme ? 'dark-logout-btn' : 'logout-btn'
-                          }
-                          type="button"
-                        >
-                          Logout
-                        </button>
-                      }
-                      className="popup-content"
+                      trigger={<LogoutBtn type="button">Logout</LogoutBtn>}
                     >
                       {close => (
-                        <div className={darkTheme ? 'dark-popup' : 'popup'}>
-                          <p
-                            className={
-                              darkTheme ? 'dark-popup-text' : 'popup-text'
-                            }
-                          >
+                        <PopupContainer>
+                          <PopupText>
                             Are you sure, you want to logout?
-                          </p>
-                          <div className="popup-btns-container">
-                            <button
-                              className={
-                                darkTheme ? 'dark-cancel-btn' : 'cancel-btn'
-                              }
-                              onClick={() => close()}
-                              type="button"
-                            >
+                          </PopupText>
+                          <PopupBtnsContainer>
+                            <CancelBtn onClick={() => close()} type="button">
                               Cancel
-                            </button>
-                            <button
-                              className="conform-btn"
-                              onClick={this.onLogout}
-                              type="button"
-                            >
+                            </CancelBtn>
+                            <ConformBtn onClick={this.onLogout} type="button">
                               Conform
-                            </button>
-                          </div>
-                        </div>
+                            </ConformBtn>
+                          </PopupBtnsContainer>
+                        </PopupContainer>
                       )}
                     </Popup>
-                  </li>
-                </ul>
-              </nav>
-              <div className="bar-routes-div-container">
+                  </NavLogoutBtnLi>
+                </NavIconsContainer>
+              </Nav>
+              <BarRoutesDivContainer>
                 {barActive && <NavRoutes />}
-              </div>
+              </BarRoutesDivContainer>
             </>
           )
         }}

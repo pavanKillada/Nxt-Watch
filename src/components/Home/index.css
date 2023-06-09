@@ -10,11 +10,151 @@
 }
 .home-body-content {
   display: flex;
+  justify-content: space-between;
 }
 .left-nav-container {
   width: 30%;
   display: none;
 }
+.banner-and-videos-container {
+  width: 100%;
+}
+.banner-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  padding: 20px;
+}
+.banner-logo {
+  margin-top: 20px;
+}
+.banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cross-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: black;
+}
+.banner-text {
+  font-size: 20px;
+  font-family: 'roboto';
+  font-weight: 500;
+  max-width: 350px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.get-it-now-btn {
+  border: 1px solid #212121;
+  background-color: transparent;
+  color: #212121;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'roboto';
+  margin-bottom: 20px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+}
+.videos-bg-container {
+  background-color: #f1f5f9;
+  padding: 20px;
+  width: 100%;
+}
+.dark-videos-bg-container {
+  background-color: black;
+  padding: 20px;
+  width: 100%;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+.search-input {
+  border: none;
+  padding: 8px 15px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-family: 'roboto';
+  width: 85%;
+  border-right: 1px solid lightgray;
+  outline: none;
+}
+.search-btn {
+  background-color: transparent;
+  width: 15%;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: gray;
+}
+.loader {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.videos-ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  width: 100%;
+}
+.home-failure-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  background-color: transparent;
+  font-family: 'roboto';
+  text-align: center;
+}
+.retry-btn {
+  background-color: #4f46e5;
+  color: white;
+  font-family: 'roboto';
+  outline: none;
+  border: none;
+  padding: 10px 25px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+.failure-head {
+  color: black;
+  font-size: 30px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.dark-failure-head {
+  color: white;
+  font-size: 30px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.failure-para {
+  color: gray;
+  font-size: 18px;
+  line-height: 2;
+}
+
 @media (min-width: 768px) {
   .left-nav-container {
     display: block;
