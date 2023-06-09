@@ -1,0 +1,22 @@
+.home-bg-container {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: white;
+}
+.dark-home-bg-container {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #212121;
+}
+.home-body-content {
+  display: flex;
+}
+.left-nav-container {
+  width: 30%;
+  display: none;
+}
+@media (min-width: 768px) {
+  .left-nav-container {
+    display: block;
+  }
+}

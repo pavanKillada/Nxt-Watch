@@ -1,0 +1,41 @@
+.bar-routes-container {
+  background-color: white;
+}
+.dark-bar-routes-container {
+  background-color: #212121;
+}
+.li-route {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0px 20px;
+}
+.route-icons {
+  font-size: 20px;
+  color: gray;
+  margin-right: 30px;
+}
+.active-route-icons {
+  font-size: 20px;
+  color: red;
+  margin-right: 30px;
+}
+.route-text {
+  font-size: 18px;
+  font-family: 'roboto';
+  color: #212121;
+}
+.dark-route-text {
+  font-size: 18px;
+  font-family: 'roboto';
+  color: white;
+}
+.link {
+  text-decoration: none;
+}
+.active-route {
+  background-color: #e2e8f0;
+}
+.dark-active-route {
+  background-color: #313131;
+}
