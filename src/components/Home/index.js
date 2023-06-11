@@ -7,8 +7,29 @@ import ReactHeaderContext from '../ReactHeaderContext'
 import Header from '../Header'
 import VideoItem from '../VideoItem'
 import NavRoutes from '../NavRoutes'
-import './index.css'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import {
+  VideosUl,
+  LoaderContainer,
+  HomeFailureContainer,
+  FailureHead,
+  FailurePara,
+  RetryBtn,
+  HomeBgContainer,
+  HomeBodyContent,
+  LeftNavContainer,
+  BannerAndVideoContainer,
+  BannerContainer,
+  BannerHeader,
+  BannerLogo,
+  CrossBtn,
+  BannerText,
+  BannerBtn,
+  VideosBgContainer,
+  SearchContainer,
+  SearchInput,
+  SearchBtn,
+} from '../../StyledComponents'
 
 const fetchStatus = {
   failed: 'FAILED',
@@ -20,6 +41,7 @@ class Home extends Component {
   state = {
     videos: [],
     fetching: fetchStatus.inProgress,
+    activeBanner: true,
   }
 
   componentDidMount() {
@@ -49,36 +71,45 @@ class Home extends Component {
     }
   }
 
-  renderVideosListView = () => {
+  renderVideosListView = darkTheme => {
     const {videos} = this.state
     return (
-      <ul className="videos-ul">
+      <VideosUl>
         {videos.map(video => (
-          <VideoItem key={video.id} videoDetails={video} />
+          <VideoItem
+            darkTheme={darkTheme}
+            key={video.id}
+            videoDetails={video}
+          />
         ))}
-      </ul>
+      </VideosUl>
     )
   }
 
+  onCancelBanner = () => {
+    this.setState({activeBanner: false})
+  }
+
   render() {
+    const {activeBanner} = this.state
     return (
       <ReactHeaderContext.Consumer>
         {value => {
           const {darkTheme} = value
 
           const renderLoader = () => (
-            <div data-testid="loader" className="loader">
+            <LoaderContainer data-testid="loader">
               <Loader
                 type="ThreeDots"
                 width={50}
                 height={50}
                 color={darkTheme ? '#ffffff' : '#00306e'}
               />
-            </div>
+            </LoaderContainer>
           )
 
           const renderFailureView = () => (
-            <div className="home-failure-container">
+            <HomeFailureContainer>
               <img
                 src={
                   darkTheme
@@ -88,18 +119,16 @@ class Home extends Component {
                 alt="Error"
                 width="50%"
               />
-              <h1 className={darkTheme ? 'dark-failure-head' : 'failure-head'}>
+              <FailureHead darkTheme={darkTheme}>
                 Oops! Something Went Wrong
-              </h1>
-              <p className="failure-para">
+              </FailureHead>
+              <FailurePara>
                 We are having some trouble to complete your request.
                 <br />
                 Please try again.
-              </p>
-              <button className="retry-btn" type="button">
-                Retry
-              </button>
-            </div>
+              </FailurePara>
+              <RetryBtn type="button">Retry</RetryBtn>
+            </HomeFailureContainer>
           )
 
           const renderHomeView = () => {
@@ -112,63 +141,53 @@ class Home extends Component {
                 return renderLoader()
 
               default:
-                return this.renderVideosListView()
+                return this.renderVideosListView(darkTheme)
             }
           }
 
           return (
-            <div
-              className={
-                darkTheme ? 'dark-home-bg-container' : 'home-bg-container'
-              }
-            >
+            <HomeBgContainer darkTheme={darkTheme}>
               <Header />
-              <div className="home-body-content">
-                <div className="left-nav-container">
+              <HomeBodyContent>
+                <LeftNavContainer>
                   <NavRoutes />
-                </div>
-                <div className="banner-and-videos-container">
-                  <div className="banner-container">
-                    <div className="banner-header">
-                      <img
-                        className="banner-logo"
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                        alt="website logo"
-                        width="120px"
-                      />
-                      <button className="cross-btn" type="button">
-                        <CgClose />
-                      </button>
-                    </div>
-                    <p className="banner-text">
-                      Buy Nxt Watch Premium Prepaid plans with UPI
-                    </p>
-                    <button className="get-it-now-btn" type="button">
-                      GET IT NOW
-                    </button>
-                  </div>
-                  <div
-                    className={
-                      darkTheme
-                        ? 'dark-videos-bg-container'
-                        : 'videos-bg-container'
-                    }
-                  >
-                    <div className="search-container">
-                      <input
+                </LeftNavContainer>
+                <BannerAndVideoContainer>
+                  {activeBanner && (
+                    <BannerContainer>
+                      <BannerHeader>
+                        <BannerLogo
+                          className="banner-logo"
+                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                          alt="website logo"
+                          width="120px"
+                        />
+                        <CrossBtn onClick={this.onCancelBanner} type="button">
+                          <CgClose />
+                        </CrossBtn>
+                      </BannerHeader>
+                      <BannerText>
+                        Buy Nxt Watch Premium Prepaid plans with UPI
+                      </BannerText>
+                      <BannerBtn type="button">GET IT NOW</BannerBtn>
+                    </BannerContainer>
+                  )}
+                  <VideosBgContainer darkTheme={darkTheme}>
+                    <SearchContainer darkTheme={darkTheme}>
+                      <SearchInput
+                        darkTheme={darkTheme}
                         type="search"
-                        className="search-input"
                         placeholder="Search"
                       />
-                      <button className="search-btn" type="button">
+                      <SearchBtn type="button">
                         <HiSearch />
-                      </button>
-                    </div>
+                      </SearchBtn>
+                    </SearchContainer>
                     {renderHomeView()}
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </VideosBgContainer>
+                </BannerAndVideoContainer>
+              </HomeBodyContent>
+            </HomeBgContainer>
           )
         }}
       </ReactHeaderContext.Consumer>

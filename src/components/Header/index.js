@@ -50,7 +50,7 @@ class Header extends Component {
           const {darkTheme, onChangeTheme} = value
           return (
             <>
-              <Nav>
+              <Nav darkTheme={darkTheme}>
                 <Link className="link" to="/">
                   <img
                     src={
@@ -62,20 +62,28 @@ class Header extends Component {
                     width="120px"
                   />
                 </Link>
-                <NavIconsContainer>
-                  <NavIconsLi>
+                <NavIconsContainer darkTheme={darkTheme}>
+                  <NavIconsLi darkTheme={darkTheme}>
                     {darkTheme ? (
-                      <ThemeBtn onClick={onChangeTheme} type="button">
+                      <ThemeBtn
+                        darkTheme={darkTheme}
+                        onClick={onChangeTheme}
+                        type="button"
+                      >
                         <BiSun />
                       </ThemeBtn>
                     ) : (
-                      <ThemeBtn onClick={onChangeTheme} type="button">
+                      <ThemeBtn
+                        darkTheme={darkTheme}
+                        onClick={onChangeTheme}
+                        type="button"
+                      >
                         <FaMoon />
                       </ThemeBtn>
                     )}
                   </NavIconsLi>
-                  <NavProfileIconLi>
-                    <ProfileBtn type="button">
+                  <NavProfileIconLi darkTheme={darkTheme}>
+                    <ProfileBtn darkTheme={darkTheme} type="button">
                       <img
                         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
                         alt="profile"
@@ -83,31 +91,42 @@ class Header extends Component {
                       />
                     </ProfileBtn>
                   </NavProfileIconLi>
-                  <NavBarsIconLi>
-                    <ThemeBtn type="button" onClick={this.onClickBar}>
+                  <NavBarsIconLi darkTheme={darkTheme}>
+                    <ThemeBtn
+                      darkTheme={darkTheme}
+                      type="button"
+                      onClick={this.onClickBar}
+                    >
                       <FaBars />
                     </ThemeBtn>
                   </NavBarsIconLi>
-                  <NavLogoutIconLi>
+                  <NavLogoutIconLi darkTheme={darkTheme}>
                     <Popup
-                      position="center center"
                       modal
                       trigger={
-                        <ThemeBtn type="button">
+                        <ThemeBtn darkTheme={darkTheme} type="button">
                           <FiLogOut />
                         </ThemeBtn>
                       }
                     >
                       {close => (
-                        <PopupContainer>
-                          <PopupText>
+                        <PopupContainer darkTheme={darkTheme}>
+                          <PopupText darkTheme={darkTheme}>
                             Are you sure, you want to logout?
                           </PopupText>
-                          <PopupBtnsContainer>
-                            <CancelBtn onClick={() => close()} type="button">
+                          <PopupBtnsContainer darkTheme={darkTheme}>
+                            <CancelBtn
+                              darkTheme={darkTheme}
+                              onClick={() => close()}
+                              type="button"
+                            >
                               Cancel
                             </CancelBtn>
-                            <ConformBtn onClick={this.onLogout} type="button">
+                            <ConformBtn
+                              darkTheme={darkTheme}
+                              onClick={this.onLogout}
+                              type="button"
+                            >
                               Conform
                             </ConformBtn>
                           </PopupBtnsContainer>
@@ -115,22 +134,34 @@ class Header extends Component {
                       )}
                     </Popup>
                   </NavLogoutIconLi>
-                  <NavLogoutBtnLi>
+                  <NavLogoutBtnLi darkTheme={darkTheme}>
                     <Popup
                       position="center center"
                       modal
-                      trigger={<LogoutBtn type="button">Logout</LogoutBtn>}
+                      trigger={
+                        <LogoutBtn darkTheme={darkTheme} type="button">
+                          Logout
+                        </LogoutBtn>
+                      }
                     >
                       {close => (
-                        <PopupContainer>
-                          <PopupText>
+                        <PopupContainer darkTheme={darkTheme}>
+                          <PopupText darkTheme={darkTheme}>
                             Are you sure, you want to logout?
                           </PopupText>
-                          <PopupBtnsContainer>
-                            <CancelBtn onClick={() => close()} type="button">
+                          <PopupBtnsContainer darkTheme={darkTheme}>
+                            <CancelBtn
+                              darkTheme={darkTheme}
+                              onClick={() => close()}
+                              type="button"
+                            >
                               Cancel
                             </CancelBtn>
-                            <ConformBtn onClick={this.onLogout} type="button">
+                            <ConformBtn
+                              darkTheme={darkTheme}
+                              onClick={this.onLogout}
+                              type="button"
+                            >
                               Conform
                             </ConformBtn>
                           </PopupBtnsContainer>
@@ -140,7 +171,7 @@ class Header extends Component {
                   </NavLogoutBtnLi>
                 </NavIconsContainer>
               </Nav>
-              <BarRoutesDivContainer>
+              <BarRoutesDivContainer darkTheme={darkTheme}>
                 {barActive && <NavRoutes />}
               </BarRoutesDivContainer>
             </>

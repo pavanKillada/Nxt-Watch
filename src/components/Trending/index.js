@@ -1,19 +1,25 @@
-import './index.css'
 import Header from '../Header'
 import ReactHeaderContext from '../ReactHeaderContext'
+import NavRoutes from '../NavRoutes'
+import {
+  HomeBgContainer,
+  HomeBodyContent,
+  LeftNavContainer,
+} from '../../StyledComponents'
 
 const Trending = () => (
   <ReactHeaderContext.Consumer>
     {value => {
       const {darkTheme} = value
       return (
-        <div
-          className={
-            darkTheme ? 'dark-trending-bg-container' : 'trending-bg-container'
-          }
-        >
+        <HomeBgContainer darkTheme={darkTheme}>
           <Header />
-        </div>
+          <HomeBodyContent darkTheme={darkTheme}>
+            <LeftNavContainer>
+              <NavRoutes />
+            </LeftNavContainer>
+          </HomeBodyContent>
+        </HomeBgContainer>
       )
     }}
   </ReactHeaderContext.Consumer>

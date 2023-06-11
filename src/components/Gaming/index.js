@@ -1,19 +1,25 @@
-import './index.css'
 import Header from '../Header'
 import ReactHeaderContext from '../ReactHeaderContext'
+import {
+  HomeBodyContent,
+  HomeBgContainer,
+  LeftNavContainer,
+} from '../../StyledComponents'
+import NavRoutes from '../NavRoutes'
 
 const Gaming = () => (
   <ReactHeaderContext.Consumer>
     {value => {
       const {darkTheme} = value
       return (
-        <div
-          className={
-            darkTheme ? 'dark-gaming-bg-container' : 'gaming-bg-container'
-          }
-        >
+        <HomeBgContainer darkTheme={darkTheme}>
           <Header />
-        </div>
+          <HomeBodyContent darkTheme={darkTheme}>
+            <LeftNavContainer>
+              <NavRoutes />
+            </LeftNavContainer>
+          </HomeBodyContent>
+        </HomeBgContainer>
       )
     }}
   </ReactHeaderContext.Consumer>

@@ -2,7 +2,18 @@ import {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import ReactHeaderContext from '../ReactHeaderContext'
-import './index.css'
+import {
+  Form,
+  LoginBgContainer,
+  FormContainer,
+  LogoContainer,
+  LoginWebsiteLogo,
+  Label,
+  UserInput,
+  CheckboxContainer,
+  LoginBtn,
+  ErrorMsg,
+} from '../../StyledComponents'
 
 class Login extends Component {
   state = {
@@ -59,77 +70,52 @@ class Login extends Component {
         {value => {
           const {darkTheme} = value
           return (
-            <div
-              className={
-                darkTheme ? 'dark-login-bg-container' : 'login-bg-container'
-              }
-            >
-              <div
-                className={darkTheme ? 'dark-form-container' : 'form-container'}
-              >
-                <form
-                  className={darkTheme ? 'dark-form' : undefined}
-                  onSubmit={this.onSubmitForm}
-                >
-                  <div className="logo-container">
-                    <img
+            <LoginBgContainer darkTheme={darkTheme}>
+              <FormContainer darkTheme={darkTheme}>
+                <Form darkTheme={darkTheme} onSubmit={this.onSubmitForm}>
+                  <LogoContainer>
+                    <LoginWebsiteLogo
                       src={
                         darkTheme
                           ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
                           : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
                       }
                       alt="website logo"
-                      className="website-logo"
                     />
-                  </div>
-                  <label
-                    className={darkTheme ? 'dark-label' : undefined}
-                    htmlFor="username"
-                  >
+                  </LogoContainer>
+                  <Label darkTheme={darkTheme} htmlFor="username">
                     USERNAME
-                  </label>
-                  <input
+                  </Label>
+                  <UserInput
                     value={username}
-                    className="user-input"
                     id="username"
                     type="text"
                     onChange={this.onUsername}
                   />
-                  <label
-                    className={darkTheme ? 'dark-label' : undefined}
-                    htmlFor="password"
-                  >
+                  <Label darkTheme={darkTheme} htmlFor="password">
                     PASSWORD
-                  </label>
-                  <input
+                  </Label>
+                  <UserInput
                     value={password}
-                    className="user-input"
                     id="password"
                     type={checkbox ? 'text' : 'password'}
                     onChange={this.onPassword}
                   />
-                  <div className="checkbox-container">
+                  <CheckboxContainer>
                     <input
                       onClick={this.togglePassword}
                       type="checkbox"
                       id="show password"
                     />
-                    <label
-                      className={darkTheme ? 'dark-label' : undefined}
-                      htmlFor="show password"
-                    >
+                    <Label darkTheme={darkTheme} htmlFor="show password">
                       Show Password
-                    </label>
-                  </div>
-                  <button className="login-btn" type="submit">
-                    Login
-                  </button>
-                  {fetchError !== '' && (
-                    <p className="error-msg">{fetchError}</p>
-                  )}
-                </form>
-              </div>
-            </div>
+                    </Label>
+                  </CheckboxContainer>
+                  <LoginBtn type="submit">Login</LoginBtn>
+                  {fetchError !== '' && <ErrorMsg>{fetchError}</ErrorMsg>}
+                </Form>
+              </FormContainer>
+            </LoginBgContainer>
           )
         }}
       </ReactHeaderContext.Consumer>

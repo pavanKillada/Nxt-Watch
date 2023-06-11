@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Popup from 'reactjs-popup'
 
 export const Nav = styled.nav`
   background-color: ${prop => (prop.darkTheme ? '#212121' : 'white')};
@@ -13,15 +14,14 @@ export const NavIconsContainer = styled.ul`
   list-style: none;
   padding: 0;
 `
+export const Ul = styled.ul`
+  padding: 0;
+`
 export const NavBarsIconLi = styled.li`
   margin-right: 20px;
   @media (min-width: 768px) {
     display: none;
   }
-`
-export const Ul = styled.ul`
-  padding: 0;
-  list-style: none;
 `
 export const NavIconsLi = styled.li`
   margin-right: 20px;
@@ -117,4 +117,318 @@ export const ConformBtn = styled.button`
   cursor: pointer;
   font-size: 16px;
   font-family: 'roboto';
+`
+export const BarRoutesContainer = styled.ul`
+  background-color: ${prop => (prop.darkTheme ? '#212121' : 'white')};
+  padding: 0;
+`
+export const LiRoute = styled.li`
+  background-color: ${prop => {
+    if (prop.isActive) {
+      if (prop.darkTheme) {
+        return '#313131'
+      }
+      return '#e2e8f0'
+    }
+    return 'transparent'
+  }};
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0px 20px;
+`
+export const RouteIcons = styled.p`
+  font-size: 20px;
+  color: ${props => (props.isActive ? 'red' : 'gray')};
+  margin-right: 30px;
+`
+export const RouteText = styled.p`
+  font-size: 18px;
+  font-family: 'roboto';
+  color: ${prop => (prop.darkTheme ? 'white' : '#212121')};
+`
+export const Links = styled.li`
+  text-decoration: none;
+`
+export const LoginBgContainer = styled.div`
+  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`
+export const FormContainer = styled.div`
+  background-color: ${props => (props.darkTheme ? '#212121' : '#f9f9f9')};
+  padding: 20px;
+  border-radius: 50px;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+`
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+  background-color: ${props => (props.darkTheme ? 'black' : 'white')};
+  font-family: roboto;
+  border-radius: ${props => (props.darkTheme ? '10px' : 0)};
+`
+export const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+`
+export const LoginWebsiteLogo = styled.img`
+  width: 150px;
+  margin-bottom: 30px;
+`
+export const Label = styled.label`
+  color: ${props => (props.darkTheme ? 'white' : 'gray')};
+  font-size: 12px;
+  font-weight: bold;
+`
+export const UserInput = styled.input`
+  min-width: 300px;
+  padding: 10px 15px;
+  color: gray;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  border: 0.5px solid gray;
+  outline: none;
+  background-color: transparent;
+  @media (max-width: 576px) {
+    min-width: 100%;
+  }
+`
+export const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+export const LoginBtn = styled.button`
+  background-color: #3b82f6;
+  color: white;
+  font-size: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+`
+export const ErrorMsg = styled.p`
+  color: red;
+  font-size: 12px;
+`
+export const HomeBgContainer = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+`
+export const HomeBodyContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const LeftNavContainer = styled.div`
+  width: 30%;
+  max-width: 300px;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`
+export const BannerAndVideoContainer = styled.div`
+  width: 100%;
+`
+export const BannerContainer = styled.div`
+  background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  padding: 20px;
+`
+export const BannerLogo = styled.img`
+  margin-top: 20px;
+`
+export const BannerHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+export const CrossBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: black;
+`
+export const BannerText = styled.p`
+  font-size: 20px;
+  font-family: 'roboto';
+  font-weight: 500;
+  max-width: 350px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+`
+export const BannerBtn = styled.button`
+  border: 1px solid #212121;
+  background-color: transparent;
+  color: #212121;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'roboto';
+  margin-bottom: 20px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+`
+export const VideosBgContainer = styled.div`
+  background-color: ${props => (props.darkTheme ? 'black' : '#f1f5f9')};
+  padding: 20px;
+  width: 100%;
+`
+export const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 30px;
+  background-color: ${props => (props.darkTheme ? '#212121' : 'transparent')};
+`
+export const SearchInput = styled.input`
+  border: none;
+  padding: 8px 15px;
+  background-color: ${props => (props.darkTheme ? 'black' : 'white')};
+  color: black;
+  font-size: 16px;
+  font-family: 'roboto';
+  width: 85%;
+  border-right: 1px solid lightgray;
+  outline: none;
+`
+export const SearchBtn = styled.button`
+  width: 15%;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: gray;
+  background-color: transparent;
+`
+export const LoaderContainer = styled.div`
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+export const VideosUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  width: 100%;
+  height: 80vh;
+  overflow: auto;
+  @media (min-width: 576px) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+`
+export const HomeFailureContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  background-color: transparent;
+  font-family: 'roboto';
+  text-align: center;
+`
+export const RetryBtn = styled.button`
+  background-color: #4f46e5;
+  color: white;
+  font-family: 'roboto';
+  outline: none;
+  border: none;
+  padding: 10px 25px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+`
+export const FailureHead = styled.h1`
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+  font-size: 30px;
+  margin-bottom: 0;
+  font-weight: 500;
+`
+export const FailurePara = styled.p`
+  color: gray;
+  font-size: 18px;
+  line-height: 2;
+`
+export const VideoItemLi = styled.li`
+  list-style: none;
+  max-width: 100%;
+  margin: 20px;
+  @media (min-width: 576px) {
+    width: 280px;
+  }
+`
+export const Thumbnail = styled.img`
+  width: 100%;
+`
+export const ThumbnailDetails = styled.div`
+  display: flex;
+  align-items: flex-start;
+  background-color: transparent;
+  padding: 10px;
+`
+export const ThumbnailContent = styled.div`
+  font-family: 'roboto';
+  margin-left: 20px;
+`
+export const ThumbnailViewsAndTime = styled.div`
+  display: flex;
+  align-items: center;
+`
+export const ThumbnailTitle = styled.p`
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 400;
+`
+export const ThumbnailPara = styled.p`
+  margin-top: 0;
+  color: gray;
+  font-size: 16px;
+  margin-right: 15px;
+`
+export const PopupLeftNavbar = styled.div`
+  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+
+  max-width: 300px;
+  font-family: 'roboto';
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+`
+export const ReactPopup = styled(Popup)`
+  &-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  &-arrow {
+    margin: none;
+  }
 `

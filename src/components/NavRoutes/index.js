@@ -3,8 +3,14 @@ import {BiListPlus} from 'react-icons/bi'
 import {AiFillHome} from 'react-icons/ai'
 import {HiFire} from 'react-icons/hi'
 import {SiYoutubegaming} from 'react-icons/si'
-import './index.css'
 import ReactHeaderContext from '../ReactHeaderContext'
+import {
+  BarRoutesContainer,
+  LiRoute,
+  RouteIcons,
+  RouteText,
+  Links,
+} from '../../StyledComponents'
 
 const routesList = [
   {
@@ -42,39 +48,25 @@ const NavRoutes = props => {
       {value => {
         const {darkTheme} = value
         return (
-          <ul
-            className={
-              darkTheme ? 'dark-bar-routes-container' : 'bar-routes-container'
-            }
-          >
+          <BarRoutesContainer darkTheme={darkTheme}>
             {routesList.map(route => {
               const isActive = pathname === route.link
-              let className = 'li-route'
-              if (isActive) {
-                if (darkTheme) {
-                  className = 'li-route dark-active-route'
-                } else {
-                  className = 'li-route active-route'
-                }
-              }
+
               return (
-                <Link key={route.id} className="link" to={route.link}>
-                  <li className={className}>
-                    <p
-                      className={
-                        isActive ? 'active-route-icons' : 'route-icons'
-                      }
-                    >
-                      {route.image}
-                    </p>
-                    <p className={darkTheme ? 'dark-route-text' : 'route-text'}>
-                      {route.text}
-                    </p>
-                  </li>
-                </Link>
+                <Links
+                  as={Link}
+                  key={route.id}
+                  className="link"
+                  to={route.link}
+                >
+                  <LiRoute isActive={isActive} darkTheme={darkTheme}>
+                    <RouteIcons isActive={isActive}>{route.image}</RouteIcons>
+                    <RouteText darkTheme={darkTheme}>{route.text}</RouteText>
+                  </LiRoute>
+                </Links>
               )
             })}
-          </ul>
+          </BarRoutesContainer>
         )
       }}
     </ReactHeaderContext.Consumer>
