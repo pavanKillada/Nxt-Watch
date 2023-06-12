@@ -67,23 +67,14 @@ class Header extends Component {
                 </Link>
                 <NavIconsContainer darkTheme={darkTheme}>
                   <NavIconsLi darkTheme={darkTheme}>
-                    {darkTheme ? (
-                      <ThemeBtn
-                        darkTheme={darkTheme}
-                        onClick={onChangeTheme}
-                        type="button"
-                      >
-                        <BiSun />
-                      </ThemeBtn>
-                    ) : (
-                      <ThemeBtn
-                        darkTheme={darkTheme}
-                        onClick={onChangeTheme}
-                        type="button"
-                      >
-                        <FaMoon />
-                      </ThemeBtn>
-                    )}
+                    <ThemeBtn
+                      darkTheme={darkTheme}
+                      onClick={onChangeTheme}
+                      type="button"
+                      data-testid="theme"
+                    >
+                      {darkTheme ? <BiSun /> : <FaMoon />}
+                    </ThemeBtn>
                   </NavIconsLi>
                   <NavProfileIconLi darkTheme={darkTheme}>
                     <ProfileBtn darkTheme={darkTheme} type="button">

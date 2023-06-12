@@ -5,7 +5,6 @@ import NavRoutes from '../NavRoutes'
 import OtherRoutesVideoItem from '../OtherRoutesVideoItem'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
-  HomeBgContainer,
   HomeBodyContent,
   LeftNavContainer,
   OtherVideosContainer,
@@ -17,6 +16,7 @@ import {
   FailureHead,
   FailurePara,
   OtherVideosUl,
+  TrendingBgContainer,
 } from '../../StyledComponents'
 
 const SavedVideos = () => (
@@ -63,7 +63,7 @@ const SavedVideos = () => (
       )
 
       return (
-        <HomeBgContainer darkTheme={darkTheme}>
+        <TrendingBgContainer data-testid="savedVideos" darkTheme={darkTheme}>
           <Header />
           <HomeBodyContent darkTheme={darkTheme}>
             <LeftNavContainer darkTheme={darkTheme}>
@@ -73,7 +73,7 @@ const SavedVideos = () => (
               {savedVideos.length === 0 ? renderEmptyView() : renderSavedList()}
             </OtherVideosContainer>
           </HomeBodyContent>
-        </HomeBgContainer>
+        </TrendingBgContainer>
       )
     }}
   </ReactHeaderContext.Consumer>

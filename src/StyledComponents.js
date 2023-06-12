@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 import Popup from 'reactjs-popup'
 
 export const Nav = styled.nav`
-  background-color: ${prop => (prop.darkTheme ? '#212121' : 'white')};
+  background-color: ${prop => (prop.darkTheme ? '#212121' : '#f9f9f9')};
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
@@ -80,7 +80,7 @@ export const BarRoutesDivContainer = styled.div`
   }
 `
 export const PopupContainer = styled.div`
-  background-color: ${prop => (prop.darkTheme ? 'black' : 'white')};
+  background-color: ${prop => (prop.darkTheme ? '#181818' : '#f9f9f9')};
   text-align: center;
   padding: 20px;
   border-radius: 8px;
@@ -120,16 +120,16 @@ export const ConformBtn = styled.button`
   font-family: 'roboto';
 `
 export const BarRoutesContainer = styled.ul`
-  background-color: ${prop => (prop.darkTheme ? '#212121' : 'white')};
+  background-color: ${prop => (prop.darkTheme ? '#212121' : '#f9f9f9')};
   padding: 0;
 `
 export const LiRoute = styled.li`
   background-color: ${prop => {
     if (prop.isActive) {
       if (prop.darkTheme) {
-        return '#313131'
+        return '#181818'
       }
-      return '#f1f5f9'
+      return '#d7dfe9'
     }
     return 'transparent'
   }};
@@ -231,7 +231,10 @@ export const ErrorMsg = styled.p`
 export const HomeBgContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
-  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+  background-color: ${props => (props.darkTheme ? '#181818' : '#f9f9f9')};
+`
+export const TrendingBgContainer = styled(HomeBgContainer)`
+  background-color: ${props => (props.darkTheme ? '#0f0f0f' : '#f9f9f9')};
 `
 export const HomeBodyContent = styled.div`
   display: flex;
@@ -248,7 +251,7 @@ export const LeftNavContainer = styled.div`
 `
 export const BannerAndVideoContainer = styled.div`
   width: 100%;
-  height: 90vh;
+  min-height: 90vh;
   background-color: ${props => (props.darkTheme ? 'black' : '#f1f5f9')};
 `
 export const BannerContainer = styled.div`
@@ -457,7 +460,7 @@ export const ThumbnailPara = styled.p`
   margin-right: 15px;
 `
 export const PopupLeftNavbar = styled.div`
-  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+  background-color: ${props => (props.darkTheme ? '#181818' : '#f9f9f9')};
   max-width: 300px;
   font-family: 'roboto';
   border-top-right-radius: 50px;
@@ -478,7 +481,7 @@ export const PopupLayover = styled.div`
   left: 0;
 `
 export const PopupContent = styled.div`
-  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+  background-color: ${props => (props.darkTheme ? '#212121' : '#f9f9f9')};
   height: 100vh;
   width: 70%;
   max-width: 350px;
@@ -635,5 +638,41 @@ export const VideoDetailsBtns = styled.button`
   margin-right: 20px;
   margin-top: 20px;
   font-size: 20px;
-  color: ${props => (props.darkTheme ? 'lightgray' : 'gray')};
+  color: ${props =>
+    props.like || props.dislike || props.save ? '#2563eb' : '#64748b'};
+  @media (min-width: 868px) {
+    margin-top: 0;
+  }
+`
+export const HrLine = styled.hr`
+  border: 1px solid 'light-gray';
+  margin-top: 20px;
+  margin-bottom: 20px;
+`
+export const FlexContainer = styled.div`
+  @media (min-width: 868px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`
+export const VideoDetailsOfChannelDetails = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: 'roboto';
+`
+export const VideoDetailsOfChannelNameAndSub = styled.div`
+  padding-left: 20px;
+`
+export const ChannelDescription = styled.p`
+  color: ${props => (props.darkTheme ? '#f1f1f1' : '#424242')};
+  font-weight: ${props => (props.channel ? 'bold' : 'normal')};
+  font-size: 18px;
+  @media (min-width: 868px) {
+    margin-left: ${props => (props.channel ? '0px' : '100px')};
+  }
+`
+export const Subscribers = styled.p`
+  color: gray;
+  font-size: 16px;
 `

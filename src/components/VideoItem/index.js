@@ -25,7 +25,7 @@ const VideoItem = props => {
         <ThumbnailDetails>
           <img
             src={videoDetails.channel.profile_image_url}
-            alt={videoDetails.channel.name}
+            alt="channel logo"
             width="50px"
           />
           <ThumbnailContent>

@@ -8,7 +8,7 @@ import NavRoutes from '../NavRoutes'
 import OtherRoutesVideoItem from '../OtherRoutesVideoItem'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
-  HomeBgContainer,
+  TrendingBgContainer,
   HomeBodyContent,
   LeftNavContainer,
   OtherVideosContainer,
@@ -120,7 +120,7 @@ class Trending extends Component {
                     ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
                     : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
                 }
-                alt="Error"
+                alt="failure view"
                 width="50%"
               />
               <FailureHead darkTheme={darkTheme}>
@@ -157,7 +157,7 @@ class Trending extends Component {
           }
 
           return (
-            <HomeBgContainer darkTheme={darkTheme}>
+            <TrendingBgContainer data-testid="trending" darkTheme={darkTheme}>
               <Header />
               <HomeBodyContent darkTheme={darkTheme}>
                 <LeftNavContainer darkTheme={darkTheme}>
@@ -167,7 +167,7 @@ class Trending extends Component {
                   {renderTrendingView()}
                 </OtherVideosContainer>
               </HomeBodyContent>
-            </HomeBgContainer>
+            </TrendingBgContainer>
           )
         }}
       </ReactHeaderContext.Consumer>

@@ -26,6 +26,7 @@ const OtherRoutesVideoItem = props => {
           otherRouteItem
           src={videoDetails.thumbnail_url}
           alt="video thumbnail"
+          height="200px"
         />
         <ThumbnailDetails>
           <OtherThumbnailChannelLogo

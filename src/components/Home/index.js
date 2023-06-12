@@ -149,7 +149,7 @@ class Home extends Component {
                     ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
                     : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
                 }
-                alt="Error"
+                alt="failure view"
                 width="50%"
               />
               <FailureHead darkTheme={darkTheme}>
@@ -186,7 +186,7 @@ class Home extends Component {
           }
 
           return (
-            <HomeBgContainer darkTheme={darkTheme}>
+            <HomeBgContainer data-testid="home" darkTheme={darkTheme}>
               <Header />
               <HomeBodyContent>
                 <LeftNavContainer>
@@ -194,15 +194,19 @@ class Home extends Component {
                 </LeftNavContainer>
                 <BannerAndVideoContainer>
                   {activeBanner && (
-                    <BannerContainer>
+                    <BannerContainer data-testid="banner">
                       <BannerHeader>
                         <BannerLogo
                           className="banner-logo"
                           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                          alt="website logo"
+                          alt="nxt watch logo"
                           width="120px"
                         />
-                        <CrossBtn onClick={this.onCancelBanner} type="button">
+                        <CrossBtn
+                          data-testid="close"
+                          onClick={this.onCancelBanner}
+                          type="button"
+                        >
                           <CgClose />
                         </CrossBtn>
                       </BannerHeader>
@@ -226,6 +230,7 @@ class Home extends Component {
                           this.getVideosList()
                         }}
                         type="button"
+                        data-testid="searchButton"
                       >
                         <HiSearch />
                       </SearchBtn>

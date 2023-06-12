@@ -8,7 +8,6 @@ import ReactHeaderContext from '../ReactHeaderContext'
 import NavRoutes from '../NavRoutes'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
-  HomeBgContainer,
   HomeBodyContent,
   LeftNavContainer,
   OtherVideosContainer,
@@ -24,6 +23,13 @@ import {
   ThumbnailViewsAndTime,
   ThumbnailPara,
   VideoDetailsBtns,
+  HrLine,
+  FlexContainer,
+  ChannelDescription,
+  Subscribers,
+  VideoDetailsOfChannelNameAndSub,
+  VideoDetailsOfChannelDetails,
+  TrendingBgContainer,
 } from '../../StyledComponents'
 
 const fetchStatus = {
@@ -35,7 +41,10 @@ const fetchStatus = {
 class VideoItemDetails extends Component {
   state = {
     fetching: fetchStatus.inProgress,
-    VideoDetails: {},
+    videoDetails: {},
+    liked: false,
+    disliked: false,
+    saved: false,
   }
 
   componentDidMount() {
@@ -54,10 +63,24 @@ class VideoItemDetails extends Component {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
+
     try {
       const response = await fetch(`https://apis.ccbp.in/videos/${id}`, options)
+
       if (response.ok) {
         const data = await response.json()
+        const savedVideos = JSON.parse(localStorage.getItem('saved_videos'))
+        if (savedVideos !== null) {
+          const thisVideo = savedVideos.find(video => {
+            if (video.id === data.video_details.id) {
+              return video
+            }
+            return undefined
+          })
+          if (thisVideo !== undefined) {
+            this.setState({saved: true})
+          }
+        }
         this.setState({
           videoDetails: data.video_details,
           fetching: fetchStatus.success,
@@ -70,32 +93,87 @@ class VideoItemDetails extends Component {
     }
   }
 
-  renderVideoDetails = darkTheme => {
+  onClickLike = () => {
+    this.setState(prev => ({liked: !prev.liked, disliked: false}))
+  }
+
+  onClickDislike = () => {
+    this.setState(prev => ({disliked: !prev.disliked, liked: false}))
+  }
+
+  onClickSave = toggleSave => {
+    const {videoDetails, saved} = this.state
+    this.setState({saved: !saved}, toggleSave(videoDetails, !saved))
+  }
+
+  renderVideoDetails = (darkTheme, onToggleSave) => {
     const {videoDetails} = this.state
     const time = formatDistanceToNow(new Date(videoDetails.published_at)).split(
       ' ',
     )
     const duration = time.slice(1, 3).join(' ')
+    const {liked, disliked, saved} = this.state
+
     return (
       <PlayerContainer>
-        <PlayerComponent width="100%" url={videoDetails.video_url} />
+        <PlayerComponent
+          width="100%"
+          height="450px"
+          controls
+          url={videoDetails.video_url}
+        />
         <VideoDetailsContent>
           <VideoTitle darkTheme={darkTheme}>{videoDetails.title}</VideoTitle>
-          <ThumbnailViewsAndTime>
-            <ThumbnailPara>{videoDetails.view_count} views</ThumbnailPara>
-            <ThumbnailPara>{duration} ago</ThumbnailPara>
-          </ThumbnailViewsAndTime>
-          <ThumbnailViewsAndTime>
-            <VideoDetailsBtns>
-              <BiLike /> Like
-            </VideoDetailsBtns>
-            <VideoDetailsBtns>
-              <BiDislike /> Dislike
-            </VideoDetailsBtns>
-            <VideoDetailsBtns>
-              <BiListPlus /> Save
-            </VideoDetailsBtns>
-          </ThumbnailViewsAndTime>
+          <FlexContainer>
+            <ThumbnailViewsAndTime>
+              <ThumbnailPara>{videoDetails.view_count} views</ThumbnailPara>
+              <ThumbnailPara>{duration} ago</ThumbnailPara>
+            </ThumbnailViewsAndTime>
+            <ThumbnailViewsAndTime>
+              <VideoDetailsBtns
+                like={liked}
+                onClick={this.onClickLike}
+                type="button"
+              >
+                <BiLike /> Like
+              </VideoDetailsBtns>
+              <VideoDetailsBtns
+                dislike={disliked}
+                onClick={this.onClickDislike}
+                type="button"
+              >
+                <BiDislike /> Dislike
+              </VideoDetailsBtns>
+              <VideoDetailsBtns
+                onClick={() => {
+                  this.onClickSave(onToggleSave)
+                }}
+                type="button"
+                save={saved}
+              >
+                <BiListPlus /> {saved ? 'Saved' : 'Save'}
+              </VideoDetailsBtns>
+            </ThumbnailViewsAndTime>
+          </FlexContainer>
+          <HrLine />
+          <VideoDetailsOfChannelDetails>
+            <img
+              src={videoDetails.channel.profile_image_url}
+              alt="channel logo"
+              width="80px"
+            />
+            <VideoDetailsOfChannelNameAndSub>
+              <ChannelDescription darkTheme={darkTheme} channel>
+                {videoDetails.channel.name}
+              </ChannelDescription>
+              <Subscribers>
+                {videoDetails.channel.subscriber_count} Subscribers
+              </Subscribers>
+            </VideoDetailsOfChannelNameAndSub>
+          </VideoDetailsOfChannelDetails>
+          <ChannelDescription darkTheme={darkTheme}>
+            {videoDetails.description}
+          </ChannelDescription>
         </VideoDetailsContent>
       </PlayerContainer>
     )
@@ -105,7 +183,7 @@ class VideoItemDetails extends Component {
     return (
       <ReactHeaderContext.Consumer>
         {value => {
-          const {darkTheme} = value
+          const {darkTheme, onToggleSave, savedVideos} = value
 
           const renderLoader = () => (
             <LoaderContainer data-testid="loader">
@@ -126,7 +204,7 @@ class VideoItemDetails extends Component {
                     ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
                     : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
                 }
-                alt="Error"
+                alt="failure view"
                 width="50%"
               />
               <FailureHead darkTheme={darkTheme}>
@@ -158,12 +236,19 @@ class VideoItemDetails extends Component {
                 return renderLoader()
 
               default:
-                return this.renderVideoDetails(darkTheme)
+                return this.renderVideoDetails(
+                  darkTheme,
+                  onToggleSave,
+                  savedVideos,
+                )
             }
           }
 
           return (
-            <HomeBgContainer darkTheme={darkTheme}>
+            <TrendingBgContainer
+              data-testid="videoItemDetails"
+              darkTheme={darkTheme}
+            >
               <Header />
               <HomeBodyContent darkTheme={darkTheme}>
                 <LeftNavContainer darkTheme={darkTheme}>
@@ -173,7 +258,7 @@ class VideoItemDetails extends Component {
                   {renderVideoDetailsView()}
                 </OtherVideosContainer>
               </HomeBodyContent>
-            </HomeBgContainer>
+            </TrendingBgContainer>
           )
         }}
       </ReactHeaderContext.Consumer>

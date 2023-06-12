@@ -8,7 +8,6 @@ import NavRoutes from '../NavRoutes'
 import GamingVideoItem from '../GamingVideoItem'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
-  HomeBgContainer,
   HomeBodyContent,
   LeftNavContainer,
   OtherVideosContainer,
@@ -22,6 +21,7 @@ import {
   FailurePara,
   RetryBtn,
   GamingVideosUl,
+  TrendingBgContainer,
 } from '../../StyledComponents'
 
 const fetchStatus = {
@@ -118,7 +118,7 @@ class Gaming extends Component {
                     ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
                     : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
                 }
-                alt="Error"
+                alt="failure view"
                 width="50%"
               />
               <FailureHead darkTheme={darkTheme}>
@@ -155,7 +155,7 @@ class Gaming extends Component {
           }
 
           return (
-            <HomeBgContainer darkTheme={darkTheme}>
+            <TrendingBgContainer data-testid="gaming" darkTheme={darkTheme}>
               <Header />
               <HomeBodyContent darkTheme={darkTheme}>
                 <LeftNavContainer darkTheme={darkTheme}>
@@ -165,7 +165,7 @@ class Gaming extends Component {
                   {renderGamingView()}
                 </OtherVideosContainer>
               </HomeBodyContent>
-            </HomeBgContainer>
+            </TrendingBgContainer>
           )
         }}
       </ReactHeaderContext.Consumer>
