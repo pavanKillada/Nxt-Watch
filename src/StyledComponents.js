@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import ReactPlayer from 'react-player'
 import Popup from 'reactjs-popup'
 
 export const Nav = styled.nav`
@@ -128,7 +129,7 @@ export const LiRoute = styled.li`
       if (prop.darkTheme) {
         return '#313131'
       }
-      return '#e2e8f0'
+      return '#f1f5f9'
     }
     return 'transparent'
   }};
@@ -141,11 +142,13 @@ export const RouteIcons = styled.p`
   font-size: 20px;
   color: ${props => (props.isActive ? 'red' : 'gray')};
   margin-right: 30px;
+  font-weight: bold;
 `
 export const RouteText = styled.p`
   font-size: 18px;
   font-family: 'roboto';
   color: ${prop => (prop.darkTheme ? 'white' : '#212121')};
+  font-weight: ${props => (props.isActive ? 'bold' : 'none')};
 `
 export const Links = styled.li`
   text-decoration: none;
@@ -238,12 +241,15 @@ export const LeftNavContainer = styled.div`
   width: 30%;
   max-width: 300px;
   display: none;
+  min-height: 95vh;
   @media (min-width: 768px) {
     display: block;
   }
 `
 export const BannerAndVideoContainer = styled.div`
   width: 100%;
+  height: 90vh;
+  background-color: ${props => (props.darkTheme ? 'black' : '#f1f5f9')};
 `
 export const BannerContainer = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
@@ -306,7 +312,7 @@ export const SearchInput = styled.input`
   border: none;
   padding: 8px 15px;
   background-color: ${props => (props.darkTheme ? 'black' : 'white')};
-  color: black;
+  color: ${props => (props.darkTheme ? 'gray' : 'black')};
   font-size: 16px;
   font-family: 'roboto';
   width: 85%;
@@ -335,17 +341,18 @@ export const LoaderContainer = styled.div`
 export const VideosUl = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 0;
-  width: 100%;
   height: 80vh;
-  overflow: auto;
+  overflow-y: auto;
   @media (min-width: 576px) {
     flex-direction: row;
-    justify-content: flex-start;
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+`
+export const OtherThumbnailChannelLogo = styled.img`
+  @media (min-width: 576px) {
+    display: none;
   }
 `
 export const HomeFailureContainer = styled.div`
@@ -367,12 +374,13 @@ export const RetryBtn = styled.button`
   padding: 10px 25px;
   margin-bottom: 20px;
   border-radius: 5px;
+  cursor: pointer;
 `
 export const FailureHead = styled.h1`
   color: ${props => (props.darkTheme ? 'white' : 'black')};
   font-size: 30px;
   margin-bottom: 0;
-  font-weight: 500;
+  font-weight: 400;
 `
 export const FailurePara = styled.p`
   color: gray;
@@ -384,11 +392,33 @@ export const VideoItemLi = styled.li`
   max-width: 100%;
   margin: 20px;
   @media (min-width: 576px) {
+    width: 220px;
+  }
+  @media (min-width: 800px) {
+    width: 250px;
+  }
+  @media (min-width: 1000px) {
     width: 280px;
+  }
+`
+export const OtherVideosUl = styled.ul`
+  width: 100%;
+  height: 75vh;
+  overflow: auto;
+`
+export const OtherVideoItemLi = styled.li`
+  list-style: none;
+  width: 100%;
+  padding: 20px;
+  @media (min-width: 576px) {
+    display: flex;
   }
 `
 export const Thumbnail = styled.img`
   width: 100%;
+  @media (min-width: 576px) {
+    width: ${props => (props.otherRouteItem ? '300px' : '100%')};
+  }
 `
 export const ThumbnailDetails = styled.div`
   display: flex;
@@ -410,6 +440,16 @@ export const ThumbnailTitle = styled.p`
   font-size: 16px;
   font-weight: 400;
 `
+export const OtherThumbnailTitle = styled.h1`
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 400;
+  @media (min-width: 800px) {
+    font-size: 20px;
+    font-weight: 500px;
+  }
+`
 export const ThumbnailPara = styled.p`
   margin-top: 0;
   color: gray;
@@ -418,17 +458,182 @@ export const ThumbnailPara = styled.p`
 `
 export const PopupLeftNavbar = styled.div`
   background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
-
   max-width: 300px;
   font-family: 'roboto';
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
 `
-export const ReactPopup = styled(Popup)`
+export const PopupLayover = styled.div`
+  background: rgb(0, 0, 0, 0.5);
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`
+export const PopupContent = styled.div`
+  background-color: ${props => (props.darkTheme ? '#212121' : 'white')};
+  height: 100vh;
+  width: 70%;
+  max-width: 350px;
+  font-family: 'roboto';
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 15px 0px;
+`
+export const PopupCancelBtn = styled.button`
+  background-color: transparent;
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 20px;
+`
+export const ContactUsContainer = styled.div`
+  background-color: transparent;
+  padding: 20px;
+  font-family: 'roboto';
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+`
+export const ContactHead = styled.h1`
+  color: ${props => (props.darkTheme ? 'white' : '#212121')};
+  font-size: 18px;
+  margin-top: auto;
+`
+export const ContactIconsContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+export const ContactPara = styled.p`
+  color: gray;
+  font-size: 17px;
+`
+export const LeftNavRoutesAndContactContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`
+export const ContactImg = styled.img`
+  margin-right: 20px;
+`
+export const LogoutPopup = styled(Popup)`
   &-overlay {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0, 0, 0, 0.5);
   }
-  &-arrow {
-    margin: none;
+`
+export const OtherVideosContainer = BannerAndVideoContainer
+
+export const TrendingHeader = styled.div`
+  background-color: ${props => (props.darkTheme ? '#313131' : '#ebebeb')};
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-family: 'roboto';
+  padding: 30px;
+`
+export const IconContainer = styled.div`
+  background-color: ${props => (props.darkTheme ? 'black' : '#cbd5e1')};
+  border-radius: 50px;
+  font-size: 30px;
+  color: red;
+  text-align: center;
+  margin-right: 20px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+export const TrendingHeaderText = styled.h1`
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+`
+export const GamingVideosUl = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  height: 75vh;
+  overflow-y: auto;
+`
+export const GameItemLi = styled.li`
+  width: 160px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  font-family: 'roboto';
+  list-style: none;
+  @media (min-width: 576px) {
+    width: 230px;
   }
+  @media (min-width: 850px) {
+    width: 280px;
+  }
+`
+export const GameItemHead = styled.h1`
+  font-size: 16px;
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+  margin-bottom: 0;
+  @media (min-width: 576px) {
+    font-size: 20px;
+  }
+`
+export const GameItemViews = styled.p`
+  color: gray;
+  font-size: 16px;
+  @media (min-width: 576px) {
+    font-size: 18px;
+  }
+`
+export const NoSavedContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'roboto';
+`
+export const PlayerContainer = styled.div`
+  padding-top: 20px;
+  width: 100%;
+  font-family: 'roboto';
+`
+
+export const PlayerComponent = styled(ReactPlayer)`
+  width: 100%;
+`
+export const VideoTitle = styled.h1`
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 30px;
+  color: ${props => (props.darkTheme ? 'white' : 'black')};
+`
+export const VideoDetailsContent = styled.div`
+  padding: 20px;
+`
+export const VideoDetailsBtns = styled.button`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100px;
+  margin-right: 20px;
+  margin-top: 20px;
+  font-size: 20px;
+  color: ${props => (props.darkTheme ? 'lightgray' : 'gray')};
 `

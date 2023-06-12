@@ -1,14 +1,12 @@
 import {Component} from 'react'
-import Popup from 'reactjs-popup'
 import Cookies from 'js-cookie'
 import {Link, withRouter} from 'react-router-dom'
 import {FaMoon, FaBars} from 'react-icons/fa'
 import {BiSun} from 'react-icons/bi'
 import {FiLogOut} from 'react-icons/fi'
 import ReactHeaderContext from '../ReactHeaderContext'
-import NavRoutes from '../NavRoutes'
+import PopupRoutes from '../PopupRoutes'
 import {
-  BarRoutesDivContainer,
   Nav,
   NavIconsContainer,
   NavIconsLi,
@@ -24,6 +22,7 @@ import {
   ConformBtn,
   NavLogoutBtnLi,
   LogoutBtn,
+  LogoutPopup,
 } from '../../StyledComponents'
 
 class Header extends Component {
@@ -32,7 +31,11 @@ class Header extends Component {
   }
 
   onClickBar = () => {
-    this.setState(prev => ({barActive: !prev.barActive}))
+    this.setState({barActive: true})
+  }
+
+  onCancelPopup = () => {
+    this.setState({barActive: false})
   }
 
   onLogout = () => {
@@ -99,9 +102,12 @@ class Header extends Component {
                     >
                       <FaBars />
                     </ThemeBtn>
+                    {barActive && (
+                      <PopupRoutes onCancelPopup={this.onCancelPopup} />
+                    )}
                   </NavBarsIconLi>
                   <NavLogoutIconLi darkTheme={darkTheme}>
-                    <Popup
+                    <LogoutPopup
                       modal
                       trigger={
                         <ThemeBtn darkTheme={darkTheme} type="button">
@@ -132,10 +138,10 @@ class Header extends Component {
                           </PopupBtnsContainer>
                         </PopupContainer>
                       )}
-                    </Popup>
+                    </LogoutPopup>
                   </NavLogoutIconLi>
                   <NavLogoutBtnLi darkTheme={darkTheme}>
-                    <Popup
+                    <LogoutPopup
                       position="center center"
                       modal
                       trigger={
@@ -167,13 +173,10 @@ class Header extends Component {
                           </PopupBtnsContainer>
                         </PopupContainer>
                       )}
-                    </Popup>
+                    </LogoutPopup>
                   </NavLogoutBtnLi>
                 </NavIconsContainer>
               </Nav>
-              <BarRoutesDivContainer darkTheme={darkTheme}>
-                {barActive && <NavRoutes />}
-              </BarRoutesDivContainer>
             </>
           )
         }}

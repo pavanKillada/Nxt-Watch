@@ -42,6 +42,7 @@ class Home extends Component {
     videos: [],
     fetching: fetchStatus.inProgress,
     activeBanner: true,
+    searchText: '',
   }
 
   componentDidMount() {
@@ -50,8 +51,9 @@ class Home extends Component {
 
   getVideosList = async () => {
     this.setState({fetching: fetchStatus.inProgress})
+    const {searchText} = this.state
     const jwtToken = Cookies.get('jwt_token')
-    const url = 'https://apis.ccbp.in/videos/all?search='
+    const url = `https://apis.ccbp.in/videos/all?search=${searchText}`
     const options = {
       method: 'GET',
       headers: {
@@ -73,6 +75,9 @@ class Home extends Component {
 
   renderVideosListView = darkTheme => {
     const {videos} = this.state
+    if (videos.length === 0) {
+      return this.renderEmptyView(darkTheme)
+    }
     return (
       <VideosUl>
         {videos.map(video => (
@@ -86,12 +91,40 @@ class Home extends Component {
     )
   }
 
+  onSearchInput = event => {
+    this.setState({searchText: event.target.value})
+  }
+
   onCancelBanner = () => {
     this.setState({activeBanner: false})
   }
 
+  renderEmptyView = darkTheme => (
+    <HomeFailureContainer>
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+        alt="Error"
+        width="50%"
+      />
+      <FailureHead darkTheme={darkTheme}>No Search results found</FailureHead>
+      <FailurePara>
+        Try different key words or remove search filter
+        <br />
+        Please try again.
+      </FailurePara>
+      <RetryBtn
+        onClick={() => {
+          this.getVideosList()
+        }}
+        type="button"
+      >
+        Retry
+      </RetryBtn>
+    </HomeFailureContainer>
+  )
+
   render() {
-    const {activeBanner} = this.state
+    const {activeBanner, searchText} = this.state
     return (
       <ReactHeaderContext.Consumer>
         {value => {
@@ -127,7 +160,14 @@ class Home extends Component {
                 <br />
                 Please try again.
               </FailurePara>
-              <RetryBtn type="button">Retry</RetryBtn>
+              <RetryBtn
+                onClick={() => {
+                  this.getVideosList()
+                }}
+                type="button"
+              >
+                Retry
+              </RetryBtn>
             </HomeFailureContainer>
           )
 
@@ -178,8 +218,15 @@ class Home extends Component {
                         darkTheme={darkTheme}
                         type="search"
                         placeholder="Search"
+                        value={searchText}
+                        onChange={this.onSearchInput}
                       />
-                      <SearchBtn type="button">
+                      <SearchBtn
+                        onClick={() => {
+                          this.getVideosList()
+                        }}
+                        type="button"
+                      >
                         <HiSearch />
                       </SearchBtn>
                     </SearchContainer>

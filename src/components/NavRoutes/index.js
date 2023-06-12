@@ -10,6 +10,12 @@ import {
   RouteIcons,
   RouteText,
   Links,
+  ContactHead,
+  ContactIconsContainer,
+  ContactPara,
+  ContactUsContainer,
+  LeftNavRoutesAndContactContainer,
+  ContactImg,
 } from '../../StyledComponents'
 
 const routesList = [
@@ -48,25 +54,52 @@ const NavRoutes = props => {
       {value => {
         const {darkTheme} = value
         return (
-          <BarRoutesContainer darkTheme={darkTheme}>
-            {routesList.map(route => {
-              const isActive = pathname === route.link
+          <LeftNavRoutesAndContactContainer>
+            <BarRoutesContainer darkTheme={darkTheme}>
+              {routesList.map(route => {
+                const isActive = pathname === route.link
 
-              return (
-                <Links
-                  as={Link}
-                  key={route.id}
-                  className="link"
-                  to={route.link}
-                >
-                  <LiRoute isActive={isActive} darkTheme={darkTheme}>
-                    <RouteIcons isActive={isActive}>{route.image}</RouteIcons>
-                    <RouteText darkTheme={darkTheme}>{route.text}</RouteText>
-                  </LiRoute>
-                </Links>
-              )
-            })}
-          </BarRoutesContainer>
+                return (
+                  <Links
+                    as={Link}
+                    key={route.id}
+                    className="link"
+                    to={route.link}
+                  >
+                    <LiRoute isActive={isActive} darkTheme={darkTheme}>
+                      <RouteIcons isActive={isActive}>{route.image}</RouteIcons>
+                      <RouteText isActive={isActive} darkTheme={darkTheme}>
+                        {route.text}
+                      </RouteText>
+                    </LiRoute>
+                  </Links>
+                )
+              })}
+            </BarRoutesContainer>
+            <ContactUsContainer>
+              <ContactHead darkTheme={darkTheme}>CONTACT US</ContactHead>
+              <ContactIconsContainer>
+                <ContactImg
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+                  alt="facebook logo"
+                  width="40px"
+                />
+                <ContactImg
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+                  alt="twitter logo"
+                  width="40px"
+                />
+                <ContactImg
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+                  alt="linked in logo"
+                  width="40px"
+                />
+              </ContactIconsContainer>
+              <ContactPara>
+                Enjoy! Now to see your channels and recommendations!
+              </ContactPara>
+            </ContactUsContainer>
+          </LeftNavRoutesAndContactContainer>
         )
       }}
     </ReactHeaderContext.Consumer>

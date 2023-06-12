@@ -1,27 +1,29 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import {formatDistanceToNow} from 'date-fns'
+import {BiDislike, BiLike, BiListPlus} from 'react-icons/bi'
 import Loader from 'react-loader-spinner'
-import {SiYoutubegaming} from 'react-icons/si'
 import Header from '../Header'
 import ReactHeaderContext from '../ReactHeaderContext'
 import NavRoutes from '../NavRoutes'
-import GamingVideoItem from '../GamingVideoItem'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
   HomeBgContainer,
   HomeBodyContent,
   LeftNavContainer,
   OtherVideosContainer,
-  VideosBgContainer,
-  TrendingHeader,
-  IconContainer,
-  TrendingHeaderText,
   LoaderContainer,
   HomeFailureContainer,
   FailureHead,
   FailurePara,
   RetryBtn,
-  GamingVideosUl,
+  PlayerComponent,
+  PlayerContainer,
+  VideoTitle,
+  VideoDetailsContent,
+  ThumbnailViewsAndTime,
+  ThumbnailPara,
+  VideoDetailsBtns,
 } from '../../StyledComponents'
 
 const fetchStatus = {
@@ -30,19 +32,22 @@ const fetchStatus = {
   success: 'SUCCESS',
 }
 
-class Gaming extends Component {
+class VideoItemDetails extends Component {
   state = {
     fetching: fetchStatus.inProgress,
-    gamingVideos: [],
+    VideoDetails: {},
   }
 
   componentDidMount() {
-    this.getVideosList()
+    this.getVideoDetails()
   }
 
-  getVideosList = async () => {
+  getVideoDetails = async () => {
     this.setState({fetching: fetchStatus.inProgress})
     const jwtToken = Cookies.get('jwt_token')
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
     const options = {
       method: 'GET',
       headers: {
@@ -50,14 +55,11 @@ class Gaming extends Component {
       },
     }
     try {
-      const response = await fetch(
-        'https://apis.ccbp.in/videos/gaming',
-        options,
-      )
+      const response = await fetch(`https://apis.ccbp.in/videos/${id}`, options)
       if (response.ok) {
         const data = await response.json()
         this.setState({
-          gamingVideos: data.videos,
+          videoDetails: data.video_details,
           fetching: fetchStatus.success,
         })
       } else {
@@ -68,28 +70,34 @@ class Gaming extends Component {
     }
   }
 
-  renderGamingVideos = darkTheme => {
-    const {gamingVideos} = this.state
+  renderVideoDetails = darkTheme => {
+    const {videoDetails} = this.state
+    const time = formatDistanceToNow(new Date(videoDetails.published_at)).split(
+      ' ',
+    )
+    const duration = time.slice(1, 3).join(' ')
     return (
-      <>
-        <TrendingHeader darkTheme={darkTheme}>
-          <IconContainer darkTheme={darkTheme}>
-            <SiYoutubegaming />
-          </IconContainer>
-          <TrendingHeaderText darkTheme={darkTheme}>Gaming</TrendingHeaderText>
-        </TrendingHeader>
-        <VideosBgContainer darkTheme={darkTheme}>
-          <GamingVideosUl>
-            {gamingVideos.map(item => (
-              <GamingVideoItem
-                darkTheme={darkTheme}
-                key={item.id}
-                videoDetails={item}
-              />
-            ))}
-          </GamingVideosUl>
-        </VideosBgContainer>
-      </>
+      <PlayerContainer>
+        <PlayerComponent width="100%" url={videoDetails.video_url} />
+        <VideoDetailsContent>
+          <VideoTitle darkTheme={darkTheme}>{videoDetails.title}</VideoTitle>
+          <ThumbnailViewsAndTime>
+            <ThumbnailPara>{videoDetails.view_count} views</ThumbnailPara>
+            <ThumbnailPara>{duration} ago</ThumbnailPara>
+          </ThumbnailViewsAndTime>
+          <ThumbnailViewsAndTime>
+            <VideoDetailsBtns>
+              <BiLike /> Like
+            </VideoDetailsBtns>
+            <VideoDetailsBtns>
+              <BiDislike /> Dislike
+            </VideoDetailsBtns>
+            <VideoDetailsBtns>
+              <BiListPlus /> Save
+            </VideoDetailsBtns>
+          </ThumbnailViewsAndTime>
+        </VideoDetailsContent>
+      </PlayerContainer>
     )
   }
 
@@ -131,7 +139,7 @@ class Gaming extends Component {
               </FailurePara>
               <RetryBtn
                 onClick={() => {
-                  this.getVideosList()
+                  this.getVideoDetails()
                 }}
                 type="button"
               >
@@ -140,7 +148,7 @@ class Gaming extends Component {
             </HomeFailureContainer>
           )
 
-          const renderGamingView = () => {
+          const renderVideoDetailsView = () => {
             const {fetching} = this.state
             switch (fetching) {
               case 'FAILED':
@@ -150,7 +158,7 @@ class Gaming extends Component {
                 return renderLoader()
 
               default:
-                return this.renderGamingVideos(darkTheme)
+                return this.renderVideoDetails(darkTheme)
             }
           }
 
@@ -162,7 +170,7 @@ class Gaming extends Component {
                   <NavRoutes />
                 </LeftNavContainer>
                 <OtherVideosContainer darkTheme={darkTheme}>
-                  {renderGamingView()}
+                  {renderVideoDetailsView()}
                 </OtherVideosContainer>
               </HomeBodyContent>
             </HomeBgContainer>
@@ -173,4 +181,4 @@ class Gaming extends Component {
   }
 }
 
-export default Gaming
+export default VideoItemDetails

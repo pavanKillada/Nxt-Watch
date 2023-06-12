@@ -1,28 +1,178 @@
+import {Component} from 'react'
+import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
+import {HiFire} from 'react-icons/hi'
 import Header from '../Header'
 import ReactHeaderContext from '../ReactHeaderContext'
 import NavRoutes from '../NavRoutes'
+import OtherRoutesVideoItem from '../OtherRoutesVideoItem'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {
   HomeBgContainer,
   HomeBodyContent,
   LeftNavContainer,
+  OtherVideosContainer,
+  VideosBgContainer,
+  TrendingHeader,
+  IconContainer,
+  TrendingHeaderText,
+  LoaderContainer,
+  HomeFailureContainer,
+  FailureHead,
+  FailurePara,
+  RetryBtn,
+  OtherVideosUl,
 } from '../../StyledComponents'
 
-const Trending = () => (
-  <ReactHeaderContext.Consumer>
-    {value => {
-      const {darkTheme} = value
-      return (
-        <HomeBgContainer darkTheme={darkTheme}>
-          <Header />
-          <HomeBodyContent darkTheme={darkTheme}>
-            <LeftNavContainer>
-              <NavRoutes />
-            </LeftNavContainer>
-          </HomeBodyContent>
-        </HomeBgContainer>
+const fetchStatus = {
+  failed: 'FAILED',
+  inProgress: 'IN_PROGRESS',
+  success: 'SUCCESS',
+}
+
+class Trending extends Component {
+  state = {
+    fetching: fetchStatus.inProgress,
+    trendingVideos: [],
+  }
+
+  componentDidMount() {
+    this.getVideosList()
+  }
+
+  getVideosList = async () => {
+    this.setState({fetching: fetchStatus.inProgress})
+    const jwtToken = Cookies.get('jwt_token')
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+    try {
+      const response = await fetch(
+        'https://apis.ccbp.in/videos/trending',
+        options,
       )
-    }}
-  </ReactHeaderContext.Consumer>
-)
+      if (response.ok) {
+        const data = await response.json()
+        this.setState({
+          trendingVideos: data.videos,
+          fetching: fetchStatus.success,
+        })
+      } else {
+        this.setState({fetching: fetchStatus.failed})
+      }
+    } catch (error) {
+      this.setState({fetching: fetchStatus.failed})
+    }
+  }
+
+  renderTrendingVideos = darkTheme => {
+    const {trendingVideos} = this.state
+    return (
+      <>
+        <TrendingHeader darkTheme={darkTheme}>
+          <IconContainer darkTheme={darkTheme}>
+            <HiFire />
+          </IconContainer>
+          <TrendingHeaderText darkTheme={darkTheme}>
+            Trending
+          </TrendingHeaderText>
+        </TrendingHeader>
+        <VideosBgContainer darkTheme={darkTheme}>
+          <OtherVideosUl>
+            {trendingVideos.map(item => (
+              <OtherRoutesVideoItem
+                darkTheme={darkTheme}
+                key={item.id}
+                videoDetails={item}
+              />
+            ))}
+          </OtherVideosUl>
+        </VideosBgContainer>
+      </>
+    )
+  }
+
+  render() {
+    return (
+      <ReactHeaderContext.Consumer>
+        {value => {
+          const {darkTheme} = value
+
+          const renderLoader = () => (
+            <LoaderContainer data-testid="loader">
+              <Loader
+                type="ThreeDots"
+                width={50}
+                height={50}
+                color={darkTheme ? '#ffffff' : '#00306e'}
+              />
+            </LoaderContainer>
+          )
+
+          const renderFailureView = () => (
+            <HomeFailureContainer>
+              <img
+                src={
+                  darkTheme
+                    ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+                    : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+                }
+                alt="Error"
+                width="50%"
+              />
+              <FailureHead darkTheme={darkTheme}>
+                Oops! Something Went Wrong
+              </FailureHead>
+              <FailurePara>
+                We are having some trouble to complete your request.
+                <br />
+                Please try again.
+              </FailurePara>
+              <RetryBtn
+                onClick={() => {
+                  this.getVideosList()
+                }}
+                type="button"
+              >
+                Retry
+              </RetryBtn>
+            </HomeFailureContainer>
+          )
+
+          const renderTrendingView = () => {
+            const {fetching} = this.state
+            switch (fetching) {
+              case 'FAILED':
+                return renderFailureView()
+
+              case 'IN_PROGRESS':
+                return renderLoader()
+
+              default:
+                return this.renderTrendingVideos(darkTheme)
+            }
+          }
+
+          return (
+            <HomeBgContainer darkTheme={darkTheme}>
+              <Header />
+              <HomeBodyContent darkTheme={darkTheme}>
+                <LeftNavContainer darkTheme={darkTheme}>
+                  <NavRoutes />
+                </LeftNavContainer>
+                <OtherVideosContainer darkTheme={darkTheme}>
+                  {renderTrendingView()}
+                </OtherVideosContainer>
+              </HomeBodyContent>
+            </HomeBgContainer>
+          )
+        }}
+      </ReactHeaderContext.Consumer>
+    )
+  }
+}
 
 export default Trending
