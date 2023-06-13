@@ -35,13 +35,13 @@ const OtherRoutesVideoItem = props => {
             width="50px"
           />
           <ThumbnailContent>
-            <OtherThumbnailTitle darkTheme={darkTheme}>
+            <OtherThumbnailTitle as="p" darkTheme={darkTheme}>
               {videoDetails.title}
             </OtherThumbnailTitle>
             <ThumbnailPara>{videoDetails.channel.name}</ThumbnailPara>
             <ThumbnailViewsAndTime>
               <ThumbnailPara>{videoDetails.view_count} views</ThumbnailPara>
-              <ThumbnailPara>{duration} ago</ThumbnailPara>
+              <ThumbnailPara as="p">{duration} ago</ThumbnailPara>
             </ThumbnailViewsAndTime>
           </ThumbnailContent>
         </ThumbnailDetails>

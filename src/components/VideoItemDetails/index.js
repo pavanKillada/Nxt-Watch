@@ -123,11 +123,13 @@ class VideoItemDetails extends Component {
           url={videoDetails.video_url}
         />
         <VideoDetailsContent>
-          <VideoTitle darkTheme={darkTheme}>{videoDetails.title}</VideoTitle>
+          <VideoTitle as="p" darkTheme={darkTheme}>
+            {videoDetails.title}
+          </VideoTitle>
           <FlexContainer>
             <ThumbnailViewsAndTime>
               <ThumbnailPara>{videoDetails.view_count} views</ThumbnailPara>
-              <ThumbnailPara>{duration} ago</ThumbnailPara>
+              <ThumbnailPara as="p">{duration} ago</ThumbnailPara>
             </ThumbnailViewsAndTime>
             <ThumbnailViewsAndTime>
               <VideoDetailsBtns

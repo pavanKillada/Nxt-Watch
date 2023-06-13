@@ -72,11 +72,11 @@ class Trending extends Component {
     const {trendingVideos} = this.state
     return (
       <>
-        <TrendingHeader darkTheme={darkTheme}>
+        <TrendingHeader data-testid="banner" darkTheme={darkTheme}>
           <IconContainer darkTheme={darkTheme}>
             <HiFire />
           </IconContainer>
-          <TrendingHeaderText darkTheme={darkTheme}>
+          <TrendingHeaderText as="h1" darkTheme={darkTheme}>
             Trending
           </TrendingHeaderText>
         </TrendingHeader>

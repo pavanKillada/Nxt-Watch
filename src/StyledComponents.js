@@ -213,7 +213,7 @@ export const CheckboxContainer = styled.div`
 `
 export const LoginBtn = styled.button`
   background-color: #3b82f6;
-  color: white;
+  color: '#ffffff';
   font-size: 15px;
   width: 100%;
   border: none;
@@ -347,6 +347,7 @@ export const VideosUl = styled.ul`
   align-items: center;
   height: 80vh;
   overflow-y: auto;
+  padding: 0;
   @media (min-width: 576px) {
     flex-direction: row;
     align-items: flex-start;
@@ -510,7 +511,7 @@ export const ContactUsContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const ContactHead = styled.h1`
+export const ContactHead = styled.p`
   color: ${props => (props.darkTheme ? 'white' : '#212121')};
   font-size: 18px;
   margin-top: auto;

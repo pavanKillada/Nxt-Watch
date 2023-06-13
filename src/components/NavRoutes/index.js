@@ -95,7 +95,7 @@ const NavRoutes = props => {
                   width="40px"
                 />
               </ContactIconsContainer>
-              <ContactPara>
+              <ContactPara as="p">
                 Enjoy! Now to see your channels and recommendations!
               </ContactPara>
             </ContactUsContainer>

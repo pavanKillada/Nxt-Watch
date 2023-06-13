@@ -124,7 +124,7 @@ class Header extends Component {
                               onClick={this.onLogout}
                               type="button"
                             >
-                              Conform
+                              Confirm
                             </ConformBtn>
                           </PopupBtnsContainer>
                         </PopupContainer>

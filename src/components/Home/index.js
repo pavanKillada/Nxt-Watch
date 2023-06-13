@@ -103,7 +103,7 @@ class Home extends Component {
     <HomeFailureContainer>
       <img
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-        alt="Error"
+        alt="no videos"
         width="50%"
       />
       <FailureHead darkTheme={darkTheme}>No Search results found</FailureHead>

@@ -40,7 +40,7 @@ const SavedVideos = () => (
 
       const renderSavedList = () => (
         <>
-          <TrendingHeader darkTheme={darkTheme}>
+          <TrendingHeader data-testid="banner" darkTheme={darkTheme}>
             <IconContainer darkTheme={darkTheme}>
               <HiFire />
             </IconContainer>
@@ -49,7 +49,7 @@ const SavedVideos = () => (
             </TrendingHeaderText>
           </TrendingHeader>
           <VideosBgContainer darkTheme={darkTheme}>
-            <OtherVideosUl>
+            <OtherVideosUl as="ul">
               {savedVideos.map(item => (
                 <OtherRoutesVideoItem
                   darkTheme={darkTheme}

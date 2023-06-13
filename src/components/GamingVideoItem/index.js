@@ -11,8 +11,14 @@ const GamingVideoItem = props => {
   return (
     <Links as={Link} to={`videos/${videoDetails.id}`}>
       <GameItemLi>
-        <img src={videoDetails.thumbnail_url} alt="thumbnail" width="100%" />
-        <GameItemHead darkTheme={darkTheme}>{videoDetails.title}</GameItemHead>
+        <img
+          src={videoDetails.thumbnail_url}
+          alt="video thumbnail"
+          width="100%"
+        />
+        <GameItemHead as="p" darkTheme={darkTheme}>
+          {videoDetails.title}
+        </GameItemHead>
         <GameItemViews>
           {videoDetails.view_count} Watching Worldwide
         </GameItemViews>

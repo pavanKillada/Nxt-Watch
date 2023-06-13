@@ -72,7 +72,7 @@ class Gaming extends Component {
     const {gamingVideos} = this.state
     return (
       <>
-        <TrendingHeader darkTheme={darkTheme}>
+        <TrendingHeader data-testid="banner" darkTheme={darkTheme}>
           <IconContainer darkTheme={darkTheme}>
             <SiYoutubegaming />
           </IconContainer>
