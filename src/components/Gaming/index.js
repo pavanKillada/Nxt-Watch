@@ -93,6 +93,10 @@ class Gaming extends Component {
     )
   }
 
+  onRetry = () => {
+    this.componentDidMount()
+  }
+
   render() {
     return (
       <ReactHeaderContext.Consumer>
@@ -129,12 +133,7 @@ class Gaming extends Component {
                 <br />
                 Please try again.
               </FailurePara>
-              <RetryBtn
-                onClick={() => {
-                  this.getVideosList()
-                }}
-                type="button"
-              >
+              <RetryBtn onClick={this.onRetry} type="button">
                 Retry
               </RetryBtn>
             </HomeFailureContainer>

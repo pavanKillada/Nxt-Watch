@@ -106,6 +106,10 @@ class VideoItemDetails extends Component {
     this.setState({saved: !saved}, toggleSave(videoDetails, !saved))
   }
 
+  onRetry = () => {
+    this.componentDidMount()
+  }
+
   renderVideoDetails = (darkTheme, onToggleSave) => {
     const {videoDetails} = this.state
     const time = formatDistanceToNow(new Date(videoDetails.published_at)).split(
@@ -116,12 +120,7 @@ class VideoItemDetails extends Component {
 
     return (
       <PlayerContainer>
-        <PlayerComponent
-          width="100%"
-          height="450px"
-          controls
-          url={videoDetails.video_url}
-        />
+        <PlayerComponent width="100%" controls url={videoDetails.video_url} />
         <VideoDetailsContent>
           <VideoTitle as="p" darkTheme={darkTheme}>
             {videoDetails.title}
@@ -217,12 +216,7 @@ class VideoItemDetails extends Component {
                 <br />
                 Please try again.
               </FailurePara>
-              <RetryBtn
-                onClick={() => {
-                  this.getVideoDetails()
-                }}
-                type="button"
-              >
+              <RetryBtn onClick={this.onRetry} type="button">
                 Retry
               </RetryBtn>
             </HomeFailureContainer>

@@ -19,13 +19,14 @@ export const Ul = styled.ul`
   padding: 0;
 `
 export const NavBarsIconLi = styled.li`
-  margin-right: 20px;
+  margin-right: 10px;
   @media (min-width: 768px) {
+    margin-right: 20px;
     display: none;
   }
 `
 export const NavIconsLi = styled.li`
-  margin-right: 20px;
+  margin-right: 10px;
 `
 export const ThemeBtn = styled.button`
   background-color: transparent;
@@ -409,6 +410,7 @@ export const OtherVideosUl = styled.ul`
   width: 100%;
   height: 75vh;
   overflow: auto;
+  padding: 0;
 `
 export const OtherVideoItemLi = styled.li`
   list-style: none;
@@ -608,6 +610,7 @@ export const NoSavedContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-family: 'roboto';
+  text-align: center;
 `
 export const PlayerContainer = styled.div`
   padding-top: 20px;

@@ -49,6 +49,10 @@ class Home extends Component {
     this.getVideosList()
   }
 
+  onRetry = () => {
+    this.componentDidMount()
+  }
+
   getVideosList = async () => {
     this.setState({fetching: fetchStatus.inProgress})
     const {searchText} = this.state
@@ -112,12 +116,7 @@ class Home extends Component {
         <br />
         Please try again.
       </FailurePara>
-      <RetryBtn
-        onClick={() => {
-          this.getVideosList()
-        }}
-        type="button"
-      >
+      <RetryBtn onClick={this.onRetry} type="button">
         Retry
       </RetryBtn>
     </HomeFailureContainer>
@@ -160,12 +159,7 @@ class Home extends Component {
                 <br />
                 Please try again.
               </FailurePara>
-              <RetryBtn
-                onClick={() => {
-                  this.getVideosList()
-                }}
-                type="button"
-              >
+              <RetryBtn onClick={this.onRetry} type="button">
                 Retry
               </RetryBtn>
             </HomeFailureContainer>

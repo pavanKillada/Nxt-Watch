@@ -29,7 +29,7 @@ const SavedVideos = () => (
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
             alt="no saved videos"
-            width="50%"
+            width="70%"
           />
           <FailureHead darkTheme={darkTheme}>No saved videos found</FailureHead>
           <FailurePara>
