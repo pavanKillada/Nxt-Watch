@@ -19,7 +19,7 @@ import {
   PopupText,
   PopupBtnsContainer,
   CancelBtn,
-  ConformBtn,
+  ConfirmBtn,
   NavLogoutBtnLi,
   LogoutBtn,
   LogoutPopup,
@@ -119,13 +119,13 @@ class Header extends Component {
                             >
                               Cancel
                             </CancelBtn>
-                            <ConformBtn
+                            <ConfirmBtn
                               darkTheme={darkTheme}
                               onClick={this.onLogout}
                               type="button"
                             >
                               Confirm
-                            </ConformBtn>
+                            </ConfirmBtn>
                           </PopupBtnsContainer>
                         </PopupContainer>
                       )}
@@ -154,13 +154,13 @@ class Header extends Component {
                             >
                               Cancel
                             </CancelBtn>
-                            <ConformBtn
+                            <ConfirmBtn
                               darkTheme={darkTheme}
                               onClick={this.onLogout}
                               type="button"
                             >
-                              Conform
-                            </ConformBtn>
+                              Confirm
+                            </ConfirmBtn>
                           </PopupBtnsContainer>
                         </PopupContainer>
                       )}

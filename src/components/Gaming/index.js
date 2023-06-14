@@ -129,9 +129,8 @@ class Gaming extends Component {
                 Oops! Something Went Wrong
               </FailureHead>
               <FailurePara>
-                We are having some trouble to complete your request.
-                <br />
-                Please try again.
+                We are having some trouble to complete your request. Please try
+                again.
               </FailurePara>
               <RetryBtn onClick={this.onRetry} type="button">
                 Retry

@@ -109,7 +109,7 @@ export const CancelBtn = styled.button`
   font-family: 'roboto';
   margin-right: 20px;
 `
-export const ConformBtn = styled.button`
+export const ConfirmBtn = styled.button`
   border: none;
   border-radius: 5px;
   padding: 10px 20px;

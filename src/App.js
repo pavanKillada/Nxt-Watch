@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import ReactHeaderContext from './components/ReactHeaderContext'
 import './App.css'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -71,7 +71,8 @@ class App extends Component {
             path="/videos/:id"
             component={VideoItemDetails}
           />
-          <ProtectedRoute component={NotFound} />
+          <Route path="/not-found" component={NotFound} />
+          <Redirect to="/not-found" />
         </Switch>
       </ReactHeaderContext.Provider>
     )
